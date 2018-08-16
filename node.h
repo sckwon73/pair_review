@@ -14,9 +14,6 @@ class Node {
   bool ErasePreviousNode();
   bool EraseNextNode();
 
-  //newly added functions
-  bool EraseNode();
-
 private:
   //newly added variables
   char _data;

@@ -6,23 +6,19 @@ Node::Node(char data) {
 	_data = data;
 	_prev = nullptr;
 	_next = nullptr;
-  return;
 }
 
 char Node::GetData() {
 	
 	return _data;
-	//return '\0';
 }
 
 Node* Node::GetPreviousNode() {
 	return _prev;
-	//return nullptr;
 }
 
 Node* Node::GetNextNode() {
 	return _next;
-  //return nullptr;
 }
 
 Node* Node::InsertPreviousNode(char data) {
@@ -30,7 +26,10 @@ Node* Node::InsertPreviousNode(char data) {
 	Node *newNode;
 
 	newNode = new Node(data);
-	prevNode = GetPreviousNode();
+	if (newNode == nullptr)
+		return nullptr;
+
+	prevNode = _prev;
 
 	if (prevNode == nullptr){
 		_prev = newNode;
@@ -56,19 +55,11 @@ Node* Node::InsertNextNode(char data) {
 	if (newNode == nullptr)
 		return nullptr;
 
-	nextNode = GetNextNode();
-
-	if (nextNode == nullptr){
-		_next = newNode;
-		newNode->_prev = this;
-	}
-	else{
-				
-		_next = newNode;
-
-		newNode->_prev = this;
+	nextNode = _next;
+	_next = newNode;
+	newNode->_prev = this;
+	if (nextNode != nullptr){
 		newNode->_next = nextNode;
-
 		nextNode->_prev = newNode;
 	}
 
@@ -76,14 +67,14 @@ Node* Node::InsertNextNode(char data) {
 }
 
 bool Node::ErasePreviousNode() {
-	//Node* node;
+
 	Node* prevNode;
 
-	prevNode = GetPreviousNode();
+	prevNode = _prev;
 	if (prevNode == nullptr)
 		return false;
 
-	if (prevNode->GetPreviousNode() != nullptr){
+	if (prevNode->_prev != nullptr){
 		_prev = prevNode->_prev;
 		_prev->_next = this;
 	}else{
@@ -96,10 +87,9 @@ bool Node::ErasePreviousNode() {
 }
 
 bool Node::EraseNextNode() {
-	//Node* node;
 	Node* nextNode;
 
-	nextNode = GetNextNode();
+	nextNode = _next;
 	if (nextNode == nullptr)
 		return false;
 
@@ -114,24 +104,4 @@ bool Node::EraseNextNode() {
 	delete nextNode;
 
   return true;
-}
-
-
-bool Node::EraseNode()
-{
-	Node *prevNode;
-	Node *nextNode;
-
-	prevNode = this->GetPreviousNode();
-	if (prevNode != nullptr) {
-		prevNode->EraseNextNode();
-		return true;
-	}
-
-	nextNode = this->GetNextNode();
-	if (nextNode != nullptr){
-		nextNode->ErasePreviousNode();
-		return true;
-	}
-	return false;
 }

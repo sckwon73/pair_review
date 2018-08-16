@@ -8,15 +8,10 @@ TypingMachine::TypingMachine() {
 	_start = new Node(' ');
 	_cur = _start;
 	_cnt = 0;
-
-	return;
 }
 
 void TypingMachine::HomeKey() {
-
 	_cur = _start;
-	
-  return;
 }
 
 void TypingMachine::EndKey() {
@@ -30,7 +25,6 @@ void TypingMachine::EndKey() {
 	} 
 	_cur = node;
 
-  return;
 }
 
 void TypingMachine::LeftKey() {
@@ -41,8 +35,6 @@ void TypingMachine::LeftKey() {
 		return;
 
 	_cur = prevNode;
-
-  return;
 }
 
 void TypingMachine::RightKey() {
@@ -67,14 +59,14 @@ bool TypingMachine::TypeKey(char key) {
 		return false;
 
 	curNode= _cur->InsertNextNode(key);
-	_cnt++;
-
 	if (curNode == nullptr)
 		return false;
 
+	_cnt++;
+	
 	_cur = curNode;
 
-  return true;
+   return true;
 }
 
 bool TypingMachine::EraseKey() {
@@ -87,20 +79,12 @@ bool TypingMachine::EraseKey() {
 	_cur->EraseNextNode();
 	_cnt--;
 
-	//FIXME : need?
-	/*
-	if (_cnt < 0)
-		return false;
-		*/
-
 	return true;
 }
 
 std::string TypingMachine::Print(char separator) {
 	std::string outString;
 	Node *node;
-
-	node = _start;
 
 	if  ( (_cur == _start) && (separator != 0) )
 	{
